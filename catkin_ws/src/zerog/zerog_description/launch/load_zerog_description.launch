@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="wall_prefix" default="wall_arm_"/>
+    <arg name="ceiling_prefix" default="ceiling_arm_"/>
+    <arg name="wall_track_prefix" default="wall_track_"/>
+    <arg name="ceiling_track_prefix" default="ceiling_track_"/>
+    
+    <!--MRM: 23-08-2022: Added argument for velocity based Interface  -->
+
+    <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+
+    <!--ur10e parameters files -->
+    <!--<arg name="joint_limit_params" default="$(find zerog_description)/config/ur10e/joint_limits.yaml"/>
+    <arg name="kinematics_params" default="$(find zerog_description)/config/ur10e/default_kinematics.yaml"/>
+    <arg name="physical_params" default="$(find zerog_description)/config/ur10e/physical_parameters.yaml"/>
+    <arg name="visual_params" default="$(find zerog_description)/config/ur10e/visual_parameters.yaml"/>
+   -->
+
+    <!--common parameters -->
+       <!--
+    <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
+    <arg name="safety_limits" default="false" doc="If True, enable the safety limits controller"/>
+    <arg name="safety_pos_margin" default="0.15" doc="The lower/upper limits in the safety controller" />
+    <arg name="safety_k_position" default="20" doc="Used to set k position in the safety controller" />
+-->
+
+    <!--MRM: 23-08-2022: Added argument for velocity based Interface  -->
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find zerog_description)/urdf/zerog.xacro'
+    wall_prefix:=$(arg wall_prefix)
+    ceiling_prefix:=$(arg ceiling_prefix)
+    wall_track_prefix:=$(arg wall_track_prefix)
+    ceiling_track_prefix:=$(arg ceiling_track_prefix)
+    transmission_hw_interface:=$(arg transmission_hw_interface)"
+ 
+    /> 
+
+    <!--joint_limit_params:=$(arg joint_limit_params) 
+    kinematics_params:=$(arg kinematics_params)
+    physical_params:=$(arg physical_params)
+    visual_params:=$(arg visual_params)
+    transmission_hw_interface:=$(arg transmission_hw_interface)
+    safety_limits:=$(arg safety_limits)
+    safety_pos_margin:=$(arg safety_pos_margin)
+    safety_k_position:=$(arg safety_k_position) --> 
+
+
+
+
+</launch>
+ 

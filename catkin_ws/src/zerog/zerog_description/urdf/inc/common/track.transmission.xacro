@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <xacro:macro name="track_transmission" params="prefix hard_interface:=PositionJointInterface">
+
+
+      <transmission name="${prefix}slider_joint">
+          <type>transmission_interface/SimpleTransmission</type>
+          <joint name="${prefix}slider_joint">
+              <hardwareInterface>hardware_interface/${hard_interface}</hardwareInterface>
+          </joint>
+          <actuator name="${prefix}slider_joint_actr">
+            <mechanicalReduction>1</mechanicalReduction>
+          </actuator>
+      </transmission>
+
+    </xacro:macro>
+
+
+</robot>

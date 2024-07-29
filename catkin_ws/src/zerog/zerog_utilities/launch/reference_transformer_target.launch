@@ -1,0 +1,24 @@
+<launch>
+
+    <arg name="namespace_reference_transformer" default="" doc="Specify the name as parent_to_child"/>
+    <arg name="parent_frame_rt" default="" doc="Specify the parent frame name"/>
+    <arg name="child_frame_rt" default="" doc="Specify the child frame name"/>
+    <arg name="frequency_rt" default="15.0" doc="Specify the frequency in hz"/>
+    <arg name="topic_to_publish_to" default="/target_frame_pose" doc="Specify the frequency in hz"/>
+
+
+
+
+    <group ns="$(arg namespace_reference_transformer)">
+        
+        <param name="parent_frame_rt" type="str" value="$(arg parent_frame_rt)"/>
+        <param name="child_frame_rt" type="str" value="$(arg child_frame_rt)"/>
+        <param name="frequency_rt" type="double" value="$(arg frequency_rt)"/>
+        <param name="topic_to_publish_to" type="str" value="$(arg topic_to_publish_to)"/>
+        <node name="target_frame_acquisition_node" pkg="zerog_utilities" type="reference_transformer_target"/>
+
+    </group>
+
+
+
+</launch>

@@ -1,0 +1,21 @@
+<launch>
+
+
+    <!-- Launching Pose Tracking Node -->
+
+    <!-- <node name="servo_server" pkg="zerog_moveit_servo" type="zerog_pose_tracking_chaser_ee_based" output="screen">
+        <param name="parameter_ns" type="string" value="servo_server" />
+        <rosparam ns="servo_server" command="load" file="$(find zerog_moveit_servo)/config/wall_arm_simulated_config.yaml" />
+        <rosparam ns="servo_server" command="load" file="$(find zerog_moveit_servo)/config/zerog_pose_tracking_settings_simulated.yaml" />
+    </node> -->
+
+  
+    <node name="target_servo_server" pkg="zerog_moveit_servo" type="zerog_pose_tracking_target_ee_based" output="screen">
+        <param name="parameter_ns" type="string" value="target_servo_server" />
+        <rosparam ns="target_servo_server" command="load" file="$(find zerog_moveit_servo)/config/ceiling_arm_simulated_config.yaml" />
+        <rosparam ns="target_servo_server" command="load" file="$(find zerog_moveit_servo)/config/zerog_pose_tracking_settings_simulated.yaml" />
+    </node>
+   
+
+
+</launch>

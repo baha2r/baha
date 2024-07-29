@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<!-- MRM: As of 30/12/2021, this file stands modified to adapt to the latest zerog_system.xacro 
+and zerog.xacro. Until now, although being called, it was of no use as it did not conform to the
+prefixes specified for each of the robotic units based on the new overall xacros and were based on
+the older version of the overall xacros developed in June-July 2021.-->
+<!-- MRM: As of 23/06/2023, an attempt is made to preserve the fixed joints which gazebo by default ignores
+It is especially useful as it should help in correct assignment of ft_sensor plugin -->
+
+  <xacro:macro name="common_params_gazebo">
+      <xacro:property name="body_color" value="Gazebo/White" />
+      <xacro:property name="base_colors" value="Gazebo/FlatBlack" />
+      <xacro:property name="slider_colors" value="Gazebo/Blue" />
+
+    <!-- MRM: This plugin must be called only once in the overall xacro no matter how many robots
+    we spawn in the gazebo environment -->
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      </plugin>
+    </gazebo>
+
+    
+    <!-- MRM: as of 30/12/2021 Here onwards modifications have been made-->
+    <gazebo reference="ceiling_track_base_link">
+      <material>${body_color}</material>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <selfCollide>true</selfCollide>
+      <gravity>true</gravity>
+    </gazebo>
+
+    <gazebo reference="ceiling_track_slider_link">
+      <material>${slider_colors}</material>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wall_track_base_link">
+      <material>${body_color}</material>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <selfCollide>true</selfCollide>
+      <gravity>true</gravity>
+    </gazebo>
+
+    <gazebo reference="wall_track_slider_link">
+      <material>${slider_colors}</material>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="ceiling_arm_shoulder_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    
+    <gazebo reference="ceiling_arm_upper_arm_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="ceiling_arm_forearm_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="ceiling_arm_wrist_1_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="ceiling_arm_wrist_3_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="ceiling_arm_wrist_2_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="ceiling_arm_tool0">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <!-- <gazebo reference="ceiling_arm_force_sensor_link">
+      <selfCollide>true</selfCollide>
+    </gazebo> -->
+
+    <!-- <gazebo reference="ceiling_arm_force_sensor_link_tool0">
+            <disableFixedJointLumping>true</disableFixedJointLumping> 
+            <preserveFixedJoint>true</preserveFixedJoint>
+            <provideFeedback>true</provideFeedback>
+    </gazebo> -->
+
+    <gazebo reference="wall_arm_shoulder_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    
+    <gazebo reference="wall_arm_upper_arm_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wall_arm_forearm_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wall_arm_wrist_1_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wall_arm_wrist_3_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wall_arm_wrist_2_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="wall_arm_tool0">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+  </xacro:macro>
+  <!--Calling the macro here only, so that when included, it is already called and loaded-->
+  <xacro:common_params_gazebo/>
+</robot>

@@ -1,0 +1,36 @@
+digraph G {
+"world" -> "CW"[label="Broadcaster: /world_CW/world_CW\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_arm_base_link" -> "ceiling_arm_base"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_track_slider_link" -> "ceiling_arm_base_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_arm_base_link" -> "ceiling_arm_base_link_inertia"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_arm_flange" -> "ceiling_arm_tool0"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_arm_wrist_3_link" -> "ceiling_arm_flange"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_arm_wrist_2_link" -> "ceiling_arm_wrist_3_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"ceiling_track_base_link" -> "ceiling_track_base_link_inertia"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"world" -> "ceiling_track_base_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_track_base_link_inertia" -> "ceiling_track_slider_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_arm_base_link" -> "wall_arm_base"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"wall_track_slider_link" -> "wall_arm_base_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"wall_arm_base_link" -> "wall_arm_base_link_inertia"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"wall_arm_flange" -> "wall_arm_tool0"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"wall_arm_wrist_3_link" -> "wall_arm_flange"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"wall_arm_wrist_2_link" -> "wall_arm_wrist_3_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_track_base_link" -> "wall_track_base_link_inertia"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"world" -> "wall_track_base_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"wall_track_base_link_inertia" -> "wall_track_slider_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"world" -> "zerog_room_frame"[label="Broadcaster: /robot_state_publisher\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 1598.976 sec old)\nBuffer length: 0.000 sec\n"];
+"ceiling_arm_upper_arm_link" -> "ceiling_arm_forearm_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"ceiling_arm_shoulder_link" -> "ceiling_arm_upper_arm_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"ceiling_arm_base_link_inertia" -> "ceiling_arm_shoulder_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"ceiling_arm_forearm_link" -> "ceiling_arm_wrist_1_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"ceiling_arm_wrist_1_link" -> "ceiling_arm_wrist_2_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_arm_upper_arm_link" -> "wall_arm_forearm_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_arm_shoulder_link" -> "wall_arm_upper_arm_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_arm_base_link_inertia" -> "wall_arm_shoulder_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_arm_forearm_link" -> "wall_arm_wrist_1_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+"wall_arm_wrist_1_link" -> "wall_arm_wrist_2_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.369 Hz\nMost recent transform: 1598.960 ( 0.016 sec old)\nBuffer length: 2.442 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1598.976"[ shape=plaintext ] ;
+ }->"world";
+}

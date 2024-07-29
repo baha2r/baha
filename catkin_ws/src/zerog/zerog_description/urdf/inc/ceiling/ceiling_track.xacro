@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<robot name="ceiling_track" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--Before you go crazy, refer to and uncomment the sanity check at the bottom in case running:
+check_urdf <(xacro ceiling_track.xacro )
+-->
+<!-- MRM: 30/12/2021: I am commenting out the include for paramsforgazebo.gazebo.xacro as it is to be included only once in the zerog_system.xacro 
+Previously, it had been included here, when the rail urdf was being tested as a standalone unit-->
+
+   <!-- <xacro:include filename="$(find zerog_description)/urdf/inc/common/paramsforgazebo.gazebo.xacro"/> -->
+<!--Defining cobot track as a macro-->
+<!-- MRM: 30/12/2021: Additional note here, the links and the joints in this file for some reason still stay hardcoded instead of prefixed, unlike the
+wall_track. Not sure why that is. Not changning without testing -->
+
+      <xacro:macro name="ceiling_track" params="prefix effort_control:=false velocity_control:=false">
+
+        <xacro:include filename="$(find zerog_description)/urdf/inc/common/track.transmission.xacro"/>
+
+
+          <link name="${prefix}base_link"/>
+          <link name="${prefix}base_link_inertia">
+            <inertial>
+              <origin rpy="0 0 0" xyz="1.634670440794769 -0.030732618031595015 -0.1125056435418255"/>
+              <mass value="166.64658924523246"/>
+              <inertia ixx="2.978557" ixy="-0.157008" ixz="0.023749" iyy="241.062243" iyz="-0.66571" izz="240.867254"/>
+            </inertial>
+            <visual>
+              <origin rpy="0 0 0" xyz="0 0 0"/>
+              <geometry>
+                <mesh filename="package://zerog_description/meshes/ceiling/base_link.stl" scale="0.001 0.001 0.001"/>
+              </geometry>
+              <material name="Gray">
+                  <color rgba="0.4 0.4 0.4 1.0"/>
+                </material>
+            </visual>
+            <collision>
+              <origin rpy="0 0 0" xyz="0 0 0"/>
+              <geometry>
+                <mesh filename="package://zerog_description/meshes/ceiling/base_link.stl" scale="0.001 0.001 0.001"/>
+              </geometry>
+            </collision>
+          </link>
+
+          <link name="${prefix}slider_link">
+            <inertial>
+              <origin rpy="0 0 0" xyz="0.05248868496043539 -0.03878871409154891 -0.03725564548207447"/>
+              <mass value="15.161153477006874"/>
+              <inertia ixx="0.280379" ixy="0.051554" ixz="0.023265" iyy="0.186301" iyz="-0.078052" izz="0.299275"/>
+            </inertial>
+            <visual>
+              <origin rpy="0 0 0" xyz="-0.0 -0.0 -0.0"/>
+              <geometry>
+                <mesh filename="package://zerog_description/meshes/ceiling/slider_link.stl" scale="0.001 0.001 0.001"/>
+              </geometry>
+              <material name="White">
+                  <color rgba="1.0 1.0 1.0 1.0"/>
+                </material>
+            </visual>
+            <collision>
+              <origin rpy="0 0 0" xyz="-0.0 -0.0 -0.0"/>
+              <geometry>
+                <mesh filename="package://zerog_description/meshes/ceiling/slider_link.stl" scale="0.001 0.001 0.001"/>
+              </geometry>
+            </collision>
+          </link>
+
+
+
+          <joint name="${prefix}base_link_to_${prefix}base_link_inertia" type="fixed">
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}base_link_inertia" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+          </joint>
+
+
+           <joint name="${prefix}slider_joint" type="prismatic">
+           <!-- <joint name="${prefix}_slider_joint" type="fixed"> -->
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <parent link="${prefix}base_link_inertia"/>
+            <child link="${prefix}slider_link"/>
+            <axis xyz="1.0 0.0 0.0"/>
+            <limit effort="100" lower="0.0" upper="3.204" velocity="100"/>
+          </joint>
+
+
+        <!--Transmission tag called here from track.transmission file-->
+        <!--Carol commented this after making joint fixed-->
+        <!-- MRM reply: changed it back to prismatic now that we have rail hardware interfaces -->
+        <xacro:track_transmission prefix="${prefix}" hard_interface="PositionJointInterface" />
+
+        <!-- <xacro:track_transmission prefix="ceiling" hard_interface="EffortJointInterface" /> -->
+
+                
+         <!--Gazebo params-->
+        <!--<xacro:common_params_gazebo/>-->
+
+      </xacro:macro>
+
+    <!--Sanity Check: Testing the macro created above [comment out when including this file elsewhere]-->
+     <!-- <xacro:ceiling_track prefix=""/>  -->
+
+
+
+
+
+</robot>

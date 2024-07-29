@@ -1,0 +1,1 @@
+/root/baha/catkin_ws/devel/.private/zerog_utilities/share/roseus/ros/zerog_utilities/manifest.l

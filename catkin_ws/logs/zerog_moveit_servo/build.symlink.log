@@ -1,0 +1,5 @@
+Symlinking /root/baha/catkin_ws/devel/share/zerog_moveit_servo/cmake/zerog_moveit_servoConfig.cmake
+Symlinking /root/baha/catkin_ws/devel/share/zerog_moveit_servo/cmake/zerog_moveit_servoConfig-version.cmake
+Symlinking /root/baha/catkin_ws/devel/lib/pkgconfig/zerog_moveit_servo.pc
+Symlinking /root/baha/catkin_ws/devel/lib/zerog_moveit_servo/zerog_pose_tracking_chaser_ee_based
+Symlinking /root/baha/catkin_ws/devel/lib/zerog_moveit_servo/zerog_pose_tracking_target_ee_based

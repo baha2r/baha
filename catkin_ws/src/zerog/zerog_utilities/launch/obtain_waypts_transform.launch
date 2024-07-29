@@ -1,0 +1,24 @@
+<launch>
+
+        <arg name="namespace_transformer" default="world_waypoint" doc="Specify the namespace in which you want the node"/>
+        <arg name="parent_frame_rt" default="world" doc="Specify the parent frame name"/>
+        <arg name="child_frame_rt" default="CW" doc="Specify the child frame name"/>
+        <arg name="topic_to_subscribe_to" default="/sample_waypoint" doc=""/>
+        
+    
+    
+    
+    
+        <group ns="$(arg namespace_transformer)">
+            
+            <param name="parent_frame_rt" type="str" value="$(arg parent_frame_rt)"/>
+            <param name="child_frame_rt" type="str" value="$(arg child_frame_rt)"/>
+            <param name="topic_to_subscribe_to" type="str" value="$(arg topic_to_subscribe_to)"/>
+    
+            <node name="pose_to_tf" pkg="zerog_utilities" type="obtain_waypts_transform"/>
+    
+        </group>
+    
+    
+    
+</launch>

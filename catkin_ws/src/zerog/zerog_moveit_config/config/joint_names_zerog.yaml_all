@@ -1,0 +1,1 @@
+controller_joint_names: ['wall_arm_shoulder_pan_joint', 'wall_arm_shoulder_lift_joint','wall_arm_elbow_joint', 'wall_arm_wrist_1_joint','wall_arm_wrist_2_joint','wall_arm_wrist_3_joint','ceiling_arm_shoulder_pan_joint','ceiling_shoulder_lift_joint','ceiling_elbow_joint','ceiling_wrist_1_joint','ceiling_wrist_2_joint', 'ceiling_wrist_3_joint']

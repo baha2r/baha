@@ -1,0 +1,8 @@
+prefix=/root/baha/catkin_ws/devel/.private/zerog_gazebo
+
+Name: zerog_gazebo
+Description: Description of zerog_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

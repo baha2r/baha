@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: zerog_description
+    relative_path: urdf/zerog.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/zerog.srdf
+  CONFIG:
+    author_name: carol martinez
+    author_email: carol.martinezluna@uni.lu
+    generated_timestamp: 1639649747

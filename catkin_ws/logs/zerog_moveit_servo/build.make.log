@@ -1,0 +1,8 @@
+[35m[1mScanning dependencies of target zerog_pose_tracking_target_ee_based[0m
+[35m[1mScanning dependencies of target zerog_pose_tracking_chaser_ee_based[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/zerog_pose_tracking_target_ee_based.dir/src/zerog_pose_tracking_target_ee_based.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/zerog_pose_tracking_chaser_ee_based.dir/src/zerog_pose_tracking_chaser_ee_based.cpp.o[0m
+[ 75%] [32m[1mLinking CXX executable /root/baha/catkin_ws/devel/.private/zerog_moveit_servo/lib/zerog_moveit_servo/zerog_pose_tracking_chaser_ee_based[0m
+[100%] [32m[1mLinking CXX executable /root/baha/catkin_ws/devel/.private/zerog_moveit_servo/lib/zerog_moveit_servo/zerog_pose_tracking_target_ee_based[0m
+[100%] Built target zerog_pose_tracking_chaser_ee_based
+[100%] Built target zerog_pose_tracking_target_ee_based

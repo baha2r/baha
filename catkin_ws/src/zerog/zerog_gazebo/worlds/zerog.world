@@ -1,0 +1,1494 @@
+<sdf version='1.6'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose frame=''>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>65535</collide_bitmask>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='zerog'>
+      <link name='ceiling_track_base_link'>
+        <pose frame=''>0.499 -1.568 2.411 3.14 -0 0</pose>
+        <inertial>
+          <pose frame=''>1.63467 -0.030733 -0.112506 0 -0 0</pose>
+          <mass>166.647</mass>
+          <inertia>
+            <ixx>2.97856</ixx>
+            <ixy>-0.157008</ixy>
+            <ixz>0.023749</ixz>
+            <iyy>241.062</iyy>
+            <iyz>-0.66571</iyz>
+            <izz>240.867</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_track_base_link_inertia_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/ceiling/base_link.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>0.2</mu>
+                <mu2>0.2</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_track_base_link_inertia_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/ceiling/base_link.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/White</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <gravity>1</gravity>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='world_to_ceiling_track' type='fixed'>
+        <child>ceiling_track_base_link</child>
+        <parent>world</parent>
+      </joint>
+      <link name='ceiling_track_slider_link'>
+        <pose frame=''>0.499 -1.568 2.411 3.14 -0 0</pose>
+        <inertial>
+          <pose frame=''>0.041531 -0.030691 -0.029478 0 -0 0</pose>
+          <mass>19.1612</mass>
+          <inertia>
+            <ixx>0.29564</ixx>
+            <ixy>0.0579978</ixy>
+            <ixz>0.0294541</ixz>
+            <iyy>0.20552</iyy>
+            <iyz>-0.0826257</iyz>
+            <izz>0.324007</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_track_slider_link_collision'>
+          <pose frame=''>-0 -0 -0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/ceiling/slider_link.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>0.2</mu>
+                <mu2>0.2</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='ceiling_track_slider_link_fixed_joint_lump__ceiling_arm_base_link_inertia_collision_1'>
+          <pose frame=''>0 0 0 0 -0 3.14</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/base.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='ceiling_track_slider_link_visual'>
+          <pose frame=''>-0 -0 -0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/ceiling/slider_link.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Blue</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <visual name='ceiling_track_slider_link_fixed_joint_lump__ceiling_arm_base_link_inertia_visual_1'>
+          <pose frame=''>0 0 0 0 -0 3.14</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/base.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_track_slider_joint' type='prismatic'>
+        <child>ceiling_track_slider_link</child>
+        <parent>ceiling_track_base_link</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>3.204</upper>
+            <effort>100</effort>
+            <velocity>100</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='ceiling_arm_shoulder_link'>
+        <pose frame=''>0.499 -1.56829 2.2303 3.14 3e-06 0.001593</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>7.778</mass>
+          <inertia>
+            <ixx>0.0314743</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0314743</iyy>
+            <iyz>0</iyz>
+            <izz>0.0218756</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_arm_shoulder_link_collision'>
+          <pose frame=''>0 0 0 0 -0 -3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/shoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_arm_shoulder_link_visual'>
+          <pose frame=''>0 0 0 0 -0 -3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/shoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_arm_shoulder_pan_joint' type='revolute'>
+        <child>ceiling_arm_shoulder_link</child>
+        <parent>ceiling_track_slider_link</parent>
+        <axis>
+          <xyz>-0 -0.001593 -0.999999</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>330</effort>
+            <velocity>2.0944</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='ceiling_arm_upper_arm_link'>
+        <pose frame=''>0.499 -1.56829 2.2303 -1.57239 3e-06 0.001593</pose>
+        <inertial>
+          <pose frame=''>-0.306 0 0.175 3.14159 1.57079 3.14159</pose>
+          <mass>12.93</mass>
+          <inertia>
+            <ixx>0.421754</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.421754</iyy>
+            <iyz>0</iyz>
+            <izz>0.0363656</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_arm_upper_arm_link_collision'>
+          <pose frame=''>0 0 0.1762 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/upperarm.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_arm_upper_arm_link_visual'>
+          <pose frame=''>0 0 0.1762 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/upperarm.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_arm_shoulder_lift_joint' type='revolute'>
+        <child>ceiling_arm_upper_arm_link</child>
+        <parent>ceiling_arm_shoulder_link</parent>
+        <axis>
+          <xyz>-0.001593 0.999997 -0.001593</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>330</effort>
+            <velocity>2.0944</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='ceiling_arm_forearm_link'>
+        <pose frame=''>-0.113699 -1.56926 2.2303 -1.57239 3e-06 0.001593</pose>
+        <inertial>
+          <pose frame=''>-0.285775 0 0.0393 3.14159 1.57079 3.14159</pose>
+          <mass>3.87</mass>
+          <inertia>
+            <ixx>0.110793</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.110793</iyy>
+            <iyz>0</iyz>
+            <izz>0.0108844</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_arm_forearm_link_collision'>
+          <pose frame=''>0 0 0.0393 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/forearm.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_arm_forearm_link_visual'>
+          <pose frame=''>0 0 0.0393 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/forearm.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_arm_elbow_joint' type='revolute'>
+        <child>ceiling_arm_forearm_link</child>
+        <parent>ceiling_arm_upper_arm_link</parent>
+        <axis>
+          <xyz>-0.001593 0.999997 -0.001593</xyz>
+          <limit>
+            <lower>-3.14159</lower>
+            <upper>3.14159</upper>
+            <effort>150</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='ceiling_arm_wrist_1_link'>
+        <pose frame=''>-0.685526 -1.39602 2.23003 -1.57239 3e-06 0.001593</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>1.96</mass>
+          <inertia>
+            <ixx>0.00510825</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00510825</iyy>
+            <iyz>0</iyz>
+            <izz>0.0055125</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_arm_wrist_1_link_collision'>
+          <pose frame=''>0 0 -0.135 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/wrist1.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_arm_wrist_1_link_visual'>
+          <pose frame=''>0 0 -0.135 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/wrist1.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_arm_wrist_1_joint' type='revolute'>
+        <child>ceiling_arm_wrist_1_link</child>
+        <parent>ceiling_arm_forearm_link</parent>
+        <axis>
+          <xyz>-0.001593 0.999997 -0.001593</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>56</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='ceiling_arm_wrist_2_link'>
+        <pose frame=''>-0.685526 -1.39583 2.34988 -0.001593 3e-06 0.001593</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>1.96</mass>
+          <inertia>
+            <ixx>0.00510825</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00510825</iyy>
+            <iyz>0</iyz>
+            <izz>0.0055125</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_arm_wrist_2_link_collision'>
+          <pose frame=''>0 0 -0.12 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/wrist2.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_arm_wrist_2_link_visual'>
+          <pose frame=''>0 0 -0.12 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/wrist2.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_arm_wrist_2_joint' type='revolute'>
+        <child>ceiling_arm_wrist_2_link</child>
+        <parent>ceiling_arm_wrist_1_link</parent>
+        <axis>
+          <xyz>0 0.001593 0.999999</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>56</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='ceiling_arm_wrist_3_link'>
+        <pose frame=''>-0.685711 -1.27928 2.34969 -1.57239 3e-06 0.001593</pose>
+        <inertial>
+          <pose frame=''>0 0 -0.025 0 -0 0</pose>
+          <mass>0.202</mass>
+          <inertia>
+            <ixx>0.000144346</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.000144346</iyy>
+            <iyz>0</iyz>
+            <izz>0.000204525</izz>
+          </inertia>
+        </inertial>
+        <collision name='ceiling_arm_wrist_3_link_collision'>
+          <pose frame=''>0 0 -0.1168 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/wrist3.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='ceiling_arm_wrist_3_link_visual'>
+          <pose frame=''>0 0 -0.1168 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/wrist3.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='ceiling_arm_wrist_3_joint' type='revolute'>
+        <child>ceiling_arm_wrist_3_link</child>
+        <parent>ceiling_arm_wrist_2_link</parent>
+        <axis>
+          <xyz>-0.001593 0.999997 -0.001593</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>56</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_track_base_link'>
+        <pose frame=''>0.47 -2.85 1.448 -1.57 0 0</pose>
+        <inertial>
+          <pose frame=''>2.11941 0.101292 -0.036317 0 -0 0</pose>
+          <mass>273.554</mass>
+          <inertia>
+            <ixx>8.67635</ixx>
+            <ixy>-1.87033</ixy>
+            <ixz>0.446626</ixz>
+            <iyy>519.778</iyy>
+            <iyz>-0.244259</iyz>
+            <izz>527.635</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_track_base_link_inertia_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/wall/base_link.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>0.2</mu>
+                <mu2>0.2</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_track_base_link_inertia_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/wall/base_link.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/FlatBlack</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <gravity>1</gravity>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='world_to_wall_track' type='fixed'>
+        <child>wall_track_base_link</child>
+        <parent>world</parent>
+      </joint>
+      <link name='wall_track_slider_link'>
+        <pose frame=''>0.47 -2.85 1.448 -1.57 0 0</pose>
+        <inertial>
+          <pose frame=''>-0.042535 0.028228 -0.097422 0 -0 0</pose>
+          <mass>19.1656</mass>
+          <inertia>
+            <ixx>0.293706</ixx>
+            <ixy>0.0506443</ixy>
+            <ixz>-0.0287371</ixz>
+            <iyy>0.174801</iyy>
+            <iyz>0.0459803</iyz>
+            <izz>0.348628</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_track_slider_link_collision'>
+          <pose frame=''>-0 -0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/wall/slider_link.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>0.2</mu>
+                <mu2>0.2</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='wall_track_slider_link_fixed_joint_lump__wall_arm_base_link_inertia_collision_1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/base.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='wall_track_slider_link_visual'>
+          <pose frame=''>-0 -0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/zerog/zerog_description/meshes/wall/slider_link.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Blue</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <visual name='wall_track_slider_link_fixed_joint_lump__wall_arm_base_link_inertia_visual_1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/base.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_track_slider_joint' type='prismatic'>
+        <child>wall_track_slider_link</child>
+        <parent>wall_track_base_link</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>4.33</upper>
+            <effort>100</effort>
+            <velocity>100</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_arm_shoulder_link'>
+        <pose frame=''>0.47 -2.6693 1.44814 1.57 -0 -3.14159</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>7.778</mass>
+          <inertia>
+            <ixx>0.0314743</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0314743</iyy>
+            <iyz>0</iyz>
+            <izz>0.0218756</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_arm_shoulder_link_collision'>
+          <pose frame=''>0 0 0 0 -0 -3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/shoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_arm_shoulder_link_visual'>
+          <pose frame=''>0 0 0 0 -0 -3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/shoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_arm_shoulder_pan_joint' type='revolute'>
+        <child>wall_arm_shoulder_link</child>
+        <parent>wall_track_slider_link</parent>
+        <axis>
+          <xyz>0 1 0.000796</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>330</effort>
+            <velocity>2.0944</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_arm_upper_arm_link'>
+        <pose frame=''>0.47 -2.6693 1.44814 3.1408 -0 -3.14159</pose>
+        <inertial>
+          <pose frame=''>-0.306 0 0.175 3.14159 1.57079 3.14159</pose>
+          <mass>12.93</mass>
+          <inertia>
+            <ixx>0.421754</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.421754</iyy>
+            <iyz>0</iyz>
+            <izz>0.0363656</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_arm_upper_arm_link_collision'>
+          <pose frame=''>0 0 0.1762 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/upperarm.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_arm_upper_arm_link_visual'>
+          <pose frame=''>0 0 0.1762 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/upperarm.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_arm_shoulder_lift_joint' type='revolute'>
+        <child>wall_arm_upper_arm_link</child>
+        <parent>wall_arm_shoulder_link</parent>
+        <axis>
+          <xyz>-0 0.000796 -1</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>330</effort>
+            <velocity>2.0944</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_arm_forearm_link'>
+        <pose frame=''>1.0827 -2.6693 1.44814 3.1408 -0 -3.14159</pose>
+        <inertial>
+          <pose frame=''>-0.285775 0 0.0393 3.14159 1.57079 3.14159</pose>
+          <mass>3.87</mass>
+          <inertia>
+            <ixx>0.110793</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.110793</iyy>
+            <iyz>0</iyz>
+            <izz>0.0108844</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_arm_forearm_link_collision'>
+          <pose frame=''>0 0 0.0393 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/forearm.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_arm_forearm_link_visual'>
+          <pose frame=''>0 0 0.0393 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/forearm.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_arm_elbow_joint' type='revolute'>
+        <child>wall_arm_forearm_link</child>
+        <parent>wall_arm_upper_arm_link</parent>
+        <axis>
+          <xyz>-0 0.000796 -1</xyz>
+          <limit>
+            <lower>-3.14159</lower>
+            <upper>3.14159</upper>
+            <effort>150</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_arm_wrist_1_link'>
+        <pose frame=''>1.65425 -2.66916 1.27399 3.1408 -0 -3.14159</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>1.96</mass>
+          <inertia>
+            <ixx>0.00510825</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00510825</iyy>
+            <iyz>0</iyz>
+            <izz>0.0055125</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_arm_wrist_1_link_collision'>
+          <pose frame=''>0 0 -0.135 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/wrist1.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_arm_wrist_1_link_visual'>
+          <pose frame=''>0 0 -0.135 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/wrist1.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_arm_wrist_1_joint' type='revolute'>
+        <child>wall_arm_wrist_1_link</child>
+        <parent>wall_arm_forearm_link</parent>
+        <axis>
+          <xyz>-0 0.000796 -1</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>56</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_arm_wrist_2_link'>
+        <pose frame=''>1.65425 -2.78901 1.2739 -1.57159 -0 -3.14159</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>1.96</mass>
+          <inertia>
+            <ixx>0.00510825</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00510825</iyy>
+            <iyz>0</iyz>
+            <izz>0.0055125</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_arm_wrist_2_link_collision'>
+          <pose frame=''>0 0 -0.12 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/wrist2.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_arm_wrist_2_link_visual'>
+          <pose frame=''>0 0 -0.12 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/wrist2.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_arm_wrist_2_joint' type='revolute'>
+        <child>wall_arm_wrist_2_link</child>
+        <parent>wall_arm_wrist_1_link</parent>
+        <axis>
+          <xyz>0 -1 -0.000796</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>56</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='wall_arm_wrist_3_link'>
+        <pose frame=''>1.65425 -2.78892 1.15735 3.1408 -0 -3.14159</pose>
+        <inertial>
+          <pose frame=''>0 0 -0.025 0 -0 0</pose>
+          <mass>0.202</mass>
+          <inertia>
+            <ixx>0.000144346</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.000144346</iyy>
+            <iyz>0</iyz>
+            <izz>0.000204525</izz>
+          </inertia>
+        </inertial>
+        <collision name='wall_arm_wrist_3_link_collision'>
+          <pose frame=''>0 0 -0.1168 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/collision/wrist3.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='wall_arm_wrist_3_link_visual'>
+          <pose frame=''>0 0 -0.1168 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/pp1744/rosworkspaces/gazebo_cm_moveit_ws/src/fmauch_universal_robot/ur_description/meshes/ur10e/visual/wrist3.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wall_arm_wrist_3_joint' type='revolute'>
+        <child>wall_arm_wrist_3_link</child>
+        <parent>wall_arm_wrist_2_link</parent>
+        <axis>
+          <xyz>-0 0.000796 -1</xyz>
+          <limit>
+            <lower>-6.28319</lower>
+            <upper>6.28319</upper>
+            <effort>56</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <static>0</static>
+      <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+        <robotNamespace>/</robotNamespace>
+      </plugin>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>583 813000000</sim_time>
+      <real_time>603 489692897</real_time>
+      <wall_time>1641678224 642616141</wall_time>
+      <iterations>583813</iterations>
+      <model name='ground_plane'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='zerog'>
+        <pose frame=''>-0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='ceiling_arm_forearm_link'>
+          <pose frame=''>0.238183 -1.56961 1.6759 1.57241 -0.062759 -3.14013</pose>
+          <velocity>0.002164 0.000108 -0.001028 1.6e-05 -0.004303 -0.00041</velocity>
+          <acceleration>0.025858 -0.000514 -0.005868 0.0239 -0.036185 -0.019369</acceleration>
+          <wrench>0.100069 -0.001988 -0.022711 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_arm_shoulder_link'>
+          <pose frame=''>0.499014 -1.56831 2.23031 3.14001 -6.8e-05 0.001572</pose>
+          <velocity>-4e-06 -1e-06 -2e-06 2e-06 -7e-06 -0.000408</velocity>
+          <acceleration>0.001417 -0.000962 0.00043 0.00302 -0.004077 0.00288</acceleration>
+          <wrench>0.011024 -0.007483 0.003344 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_arm_upper_arm_link'>
+          <pose frame=''>0.499015 -1.56831 2.23031 -1.5746 -1.13104 0.005003</pose>
+          <velocity>-3e-06 -1e-06 -3e-06 4e-06 -0.003909 -0.000413</velocity>
+          <acceleration>0.017455 0.002386 -0.00623 -0.087803 -0.033814 -0.208229</acceleration>
+          <wrench>0.225693 0.030854 -0.080553 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_arm_wrist_1_link'>
+          <pose frame=''>0.808335 -1.39462 1.63976 1.57243 -0.062776 -3.14013</pose>
+          <velocity>0.002391 -0.000125 0.001424 -1.1e-05 -0.00318 -0.000411</velocity>
+          <acceleration>0.029449 -0.005933 0.002418 -0.011586 -0.026696 -0.019812</acceleration>
+          <wrench>0.05772 -0.011628 0.004739 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_arm_wrist_2_link'>
+          <pose frame=''>0.800817 -1.39483 1.52015 -3.13996 -0.062772 -3.14012</pose>
+          <velocity>0.002772 -0.000124 0.001399 -2e-05 -0.003186 -0.000409</velocity>
+          <acceleration>0.034623 -0.008135 0.001299 -0.023355 -0.044715 -0.018234</acceleration>
+          <wrench>0.06786 -0.015945 0.002547 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_arm_wrist_3_link'>
+          <pose frame=''>0.800633 -1.27828 1.51996 1.57244 -0.062776 -3.14012</pose>
+          <velocity>0.002821 -0.000124 0.001395 -3e-05 -0.003159 -0.00041</velocity>
+          <acceleration>0.036795 -0.008269 -0.002008 -0.0343 -0.031786 -0.031</acceleration>
+          <wrench>0.007433 -0.00167 -0.000406 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_track_base_link'>
+          <pose frame=''>0.499 -1.568 2.411 3.14 -0 0</pose>
+          <velocity>-0 0 0 0 -0 0</velocity>
+          <acceleration>-6e-06 1e-06 2e-06 3.3e-05 5e-06 -1e-06</acceleration>
+          <wrench>-0.001005 0.000249 0.00038 0 -0 0</wrench>
+        </link>
+        <link name='ceiling_track_slider_link'>
+          <pose frame=''>0.499001 -1.56802 2.41101 3.14 -6.7e-05 -2.5e-05</pose>
+          <velocity>-5e-06 -1e-06 -2e-06 1e-06 -4e-06 0</velocity>
+          <acceleration>5.2e-05 -0.001513 0.000808 0.003772 0.000415 0.001853</acceleration>
+          <wrench>0.001005 -0.028985 0.015479 0 -0 0</wrench>
+        </link>
+        <link name='wall_arm_forearm_link'>
+          <pose frame=''>1.0827 -2.66964 1.44984 3.14081 0.002766 3.14106</pose>
+          <velocity>-1.6e-05 -0.000607 0.005668 3e-06 -0.009251 -0.001014</velocity>
+          <acceleration>-0 -0 0 0 -0 0</acceleration>
+          <wrench>-0 -0 0 0 -0 0</wrench>
+        </link>
+        <link name='wall_arm_shoulder_link'>
+          <pose frame=''>0.470004 -2.66932 1.44816 1.57001 0.002961 3.14157</pose>
+          <velocity>-0 0 -0 0 -0.009252 -7e-06</velocity>
+          <acceleration>0 0 -0 0 -0 0</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
+        </link>
+        <link name='wall_arm_upper_arm_link'>
+          <pose frame=''>0.470002 -2.66932 1.44815 3.14081 0.002769 3.14107</pose>
+          <velocity>-0 0 -0 3e-06 -0.009251 -0.000991</velocity>
+          <acceleration>0 -0 0 0 -0 0</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
+        </link>
+        <link name='wall_arm_wrist_1_link'>
+          <pose frame=''>1.65473 -2.66981 1.27727 3.1408 0.002761 3.14104</pose>
+          <velocity>0.00158 -0.001186 0.01096 3e-06 -0.009251 -0.001069</velocity>
+          <acceleration>-0 0 -0 -1e-06 0 0</acceleration>
+          <wrench>-0 0 -0 0 -0 0</wrench>
+        </link>
+        <link name='wall_arm_wrist_2_link'>
+          <pose frame=''>1.65466 -2.78966 1.27718 -1.57161 0.002733 3.14104</pose>
+          <velocity>0.001453 -0.001186 0.010959 3e-06 -0.009222 -0.001069</velocity>
+          <acceleration>0 0 -0 1e-06 -0 0</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
+        </link>
+        <link name='wall_arm_wrist_3_link'>
+          <pose frame=''>1.65498 -2.78957 1.16063 3.14078 0.002732 3.14104</pose>
+          <velocity>0.002528 -0.001186 0.010962 3e-06 -0.009222 -0.00107</velocity>
+          <acceleration>-0 -0 -0 -4e-06 0 0</acceleration>
+          <wrench>-0 -0 -0 0 -0 0</wrench>
+        </link>
+        <link name='wall_track_base_link'>
+          <pose frame=''>0.47 -2.85 1.448 -1.57 0 0</pose>
+          <velocity>-0 -0 -0 0 -0 0</velocity>
+          <acceleration>-0 -0 0 0 -0 0</acceleration>
+          <wrench>-0 -0 0 0 -0 0</wrench>
+        </link>
+        <link name='wall_track_slider_link'>
+          <pose frame=''>0.47 -2.85002 1.44802 -1.57 -5e-05 -1.8e-05</pose>
+          <velocity>-0 0 -0 -0 -0 -0</velocity>
+          <acceleration>-0 0 -0 -0 -0 -0</acceleration>
+          <wrench>-0 0 -0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui combinedscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>10.5827 8.4068 4.3591 -0 0.287643 -2.26699</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

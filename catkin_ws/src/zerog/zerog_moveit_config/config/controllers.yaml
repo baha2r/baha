@@ -1,0 +1,24 @@
+### ros-control settings:
+controller_list:
+- name: wall_arm/scaled_pos_joint_traj_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - wall_arm_shoulder_pan_joint
+      - wall_arm_shoulder_lift_joint
+      - wall_arm_elbow_joint
+      - wall_arm_wrist_1_joint
+      - wall_arm_wrist_2_joint
+      - wall_arm_wrist_3_joint
+  - name: ceiling_arm/scaled_pos_joint_traj_controller
+    action_ns: follow_joint_trajectory
+    default: True
+    type: FollowJointTrajectory
+    joints:
+      - ceiling_arm_shoulder_pan_joint
+      - ceiling_shoulder_lift_joint
+      - ceiling_elbow_joint
+      - ceiling_wrist_1_joint
+      - ceiling_wrist_2_joint
+      - ceiling_wrist_3_joint

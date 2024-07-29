@@ -1,0 +1,68 @@
+<launch>
+  
+<rosparam command="load" file="$(find zerog_moveit_config)/config/joint_names_zerog.yaml"  />
+
+<!-- MRM: 08/01/2022: Adding the "gazebo_simulation" arg so that there is not need to create more than one moveit configs and so that appropriate ros_controllers are loaded when launching moveit
+without messing with the ros_controllers for real hardware" -->
+<arg name="gazebo_simulation" default="true"/> 
+
+<arg name="sim" default="false" />
+<arg name="debug" default="false" />
+
+
+
+<arg name="load_robot_description" default="true" /> 
+<!-- load URDF, SRDF and joint_limits configuration -->
+<include file="$(find zerog_moveit_config)/launch/planning_context.launch">
+  <arg name="load_robot_description" value="$(arg load_robot_description)" />
+</include>
+
+<!-- MRM: 08/01/2022: This is where we differ from the real hardware. As the simulation is not organised in name spaces
+the joint_state_publisher and hence the /joint_states topic do not require to listen to source list with similar messages -->
+
+<!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"> 
+    <param name = "/use_gui" value= "false"/>
+    <rosparam param= "/source_list">[/wall_arm/joint_states,/ceiling_arm/joint_states,/wall_track/joint_states,/ceiling_track/joint_states]</rosparam>
+</node>   -->
+
+<!--  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="$(arg use_gui)"/>
+    <rosparam param="source_list" subst_value="True">[/right_arm/joint_states,/left_arm/joint_states]</rosparam>
+  </node>
+-->
+
+
+<!-- run the robot simulator and action interface nodes -->
+  <group if="$(arg sim)">
+    <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch" />
+  </group>
+
+  <!-- Remap follow_joint_trajectory -->
+  <!-- <remap if="$(arg sim)" from="/scaled_pos_joint_traj_controller/follow_joint_trajectory" to="/pos_joint_traj_controller/follow_joint_trajectory"/>-->
+ <!-- Remap follow_joint_trajectory -->
+ <!-- <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/> -->
+ 
+ <!--<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> 
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"> 
+    <param name = "/use_gui" value= "false"/>
+    <rosparam param= "/source_list">[/joint_states]</rosparam>
+  </node> -->
+
+
+  <!-- Launch moveit -->
+  <include file="$(find zerog_moveit_config)/launch/move_group.launch">
+    <arg name="gazebo_simulation" value="$(arg gazebo_simulation)"/>
+    <arg name="debug" default="$(arg debug)" />
+  </include>
+
+  <!-- Launch moveit -->
+  <include file="$(find zerog_moveit_config)/launch/moveit_rviz.launch">
+    <!-- <arg name="config" default="true" />  -->
+  </include>
+
+
+
+</launch>
+
+
+

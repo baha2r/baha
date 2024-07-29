@@ -1,0 +1,73 @@
+<launch>
+
+    <arg name="home_part" default="$(env HOME)/Desktop/SpaceR/"/>
+    <arg name="folder_part" default="SynchronizationTests/"/>
+     <!-- Set the duration -->
+    <arg name="recording_duration" default="1h" />
+
+    <!-- <arg name="topics_name" default="/CW_chaser_OT/pose /CW_target_OT/pose /Way_pts_chaser_pose /Way_pts_target_pose /chaser_frame_pose /target_frame_pose /servo_server/target_pose /vrpn_client_node/UR10e_patterns_11_12/pose /vrpn_client_node/UR10e_patterns_13_14/pose" /> -->
+    <!-- <node type="record" name="record" pkg="rosbag" args="record $(arg topics_name) -o /home/adminubu/Desktop/SpaceR/BS_tests/BS_test_Feb15_23/BS_test_Feb15_23"/>  -->
+    <!-- <arg name="topics_name" default="/ceiling_track/joint_states /ceiling_track/slider_position_trajectory_controller/command" />
+    <node type="record" name="record" pkg="rosbag" args="record $(arg topics_name) -o /home/pp1744/Desktop/SpaceR/RailFrequencyTests17022023/F_200_1000_500_"/>  -->
+
+    <!-- <arg name="topics_name" default="/ceiling_arm_target_frame /cb_ct/pose /cb_tf/pose /tf_dtf/pose /ceiling_arm/my_cartesian_compliance_controller/ft_sensor_wrench" /> -->
+    <!-- <arg name="topics_name" default="/ceiling_arm/joint_states /ceiling_arm/my_cartesian_force_controller/ft_sensor_wrench /ceiling_arm/wrench /ceiling_arm_target_frame /cb_ct/pose" />
+    <node type="record" name="record" pkg="rosbag" args="record $(arg topics_name) -o /home/pp1744/Desktop/SpaceR/Force_Control/20_06_2023_gravity_compensation_test" />  -->
+
+    <!-- mrm: 17-07-2023: P3 six dof -->
+    <!-- <arg name="topics_name" default="/ceiling_arm/joint_states /Way_pts_target_pose /target_frame_pose /ceiling_arm/manipulability_index /ceiling_arm/reduced_manipulability_index /ceiling_arm/jacobian /ceiling_arm/reduced_jacobian /ceiling_arm/ellipsoid /CW_target/pose" /> -->
+    
+    <!-- mrm: 18-07-2023 P3 seven dof-->
+    <!-- <arg name="topics_name" default="/zerog/ceiling/combined_control/joint_states /ceiling_arm/joint_states /Way_pts_target_pose /target_frame_pose /ceiling/manipulability_index /ceiling/reduced_manipulability_index /ceiling/jacobian
+    /ceiling/reduced_jacobian /CW_target/pose" /> -->
+
+    <!-- mrm 23-12-2023: drift tests -->
+    <arg name="topics_name" default="
+    /ceiling_arm/bus0/ceiling_arm/ft_sensor_readings/wrench
+    /ceiling_arm/ur_hardware_interface/tool_data
+    /ceiling_arm/bus0/ceiling_arm/ft_sensor_readings/temperature
+    /ceiling_arm/wrench
+    /wall_arm/bus0/wall_arm/ft_sensor_readings/wrench
+    /wall_arm/ur_hardware_interface/tool_data
+    /wall_arm/bus0/wall_arm/ft_sensor_readings/temperature
+    /wall_arm/wrench
+    "/>
+
+    <!-- mrm 27-07-2023: for 6 dof -->
+    <!-- <arg name="topics_name" default="
+    /joint_states
+    /republished/joint_states 
+    /ceiling_arm/manipulability_index 
+    /ceiling_arm/tool_manipulability_index 
+    /ceiling_arm/condition_number   
+    /CW_target_ref/pose 
+    /CW_tool0/pose
+    /cab_ct/pose
+    /ceiling_arm/jacobian
+    /ceiling_arm/tool_jacobian
+    /ceiling_arm/eigen_values
+    /ceiling_arm/tool_eigen_values"/> -->
+
+    <!-- mrm 27-07-2023: for 7 dof -->
+    <!-- <arg name="topics_name" default="
+    /republished/zerog/joint_states
+    /zerog/joint_states    
+    /ceiling/manipulability_index
+    /ceiling/reduced_manipulability_index
+    /ceiling/tool_manipulability_index
+    /ceiling/condition_number
+    /ceiling/reduced_condition_number    
+    /CW_target_ref/pose 
+    /CW_tool0/pose
+    /cab_ct/pose
+    /ceiling/jacobian
+    /ceiling/reduced_jacobian
+    /ceiling/tool_jacobian    
+    /ceiling/eigen_values
+    /ceiling/reduced_eigen_values
+    /ceiling/tool_eigen_values"/> -->
+
+    
+    <node type="record" name="record" pkg="rosbag" args="record --duration=$(arg recording_duration) $(arg topics_name) -o $(arg home_part)$(arg folder_part)" /> 
+
+</launch>

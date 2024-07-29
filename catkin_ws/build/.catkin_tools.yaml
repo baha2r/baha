@@ -1,0 +1,6 @@
+devel_space: /root/baha/catkin_ws/devel
+install: false
+install_space: /root/baha/catkin_ws/install
+profile: default
+source_space: /root/baha/catkin_ws/src
+workspace: /root/baha/catkin_ws

@@ -1,0 +1,3 @@
+Symlinking /root/baha/catkin_ws/devel/share/zerog_moveit_config/cmake/zerog_moveit_configConfig-version.cmake
+Symlinking /root/baha/catkin_ws/devel/share/zerog_moveit_config/cmake/zerog_moveit_configConfig.cmake
+Symlinking /root/baha/catkin_ws/devel/lib/pkgconfig/zerog_moveit_config.pc

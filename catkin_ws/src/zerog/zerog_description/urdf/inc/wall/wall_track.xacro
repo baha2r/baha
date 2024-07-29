@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<robot name="wall_track" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--Before you go crazy, refer to and uncomment the sanity check at the bottom in case running:
+check_urdf <(xacro wall_track.xacro )
+-->
+<!-- MRM: 30/12/2021: I am commenting out the include for paramsforgazebo.gazebo.xacro as it is to be included only once in the zerog_system.xacro 
+Previously, it had been included here, when the rail urdf was being tested as a standalone unit-->
+   <!-- <xacro:include filename="$(find zerog_description)/urdf/inc/common/paramsforgazebo.gazebo.xacro"/> -->
+<!--Defining cobot track as a macro-->
+
+      <xacro:macro name="wall_track" params="prefix effort_control:=false velocity_control:=false">
+
+        <xacro:include filename="$(find zerog_description)/urdf/inc/common/track.transmission.xacro"/>
+
+      <link name="${prefix}base_link"/>
+      <link name="${prefix}base_link_inertia"> 
+          <inertial>
+            <origin rpy="0 0 0" xyz="2.1194073250673338 0.10129237734439407 -0.036317242060705066"/>
+            <mass value="273.5544918556637"/>
+            <inertia ixx="8.676347" ixy="-1.870327" ixz="0.446626" iyy="519.77827" iyz="-0.244259" izz="527.635334"/>
+          </inertial>
+          <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+               <mesh filename="package://zerog_description/meshes/wall/base_link.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="Gray">
+                  <color rgba="0.4 0.4 0.4 1.0"/>
+                </material>
+          </visual>
+          <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+              <mesh filename="package://zerog_description/meshes/wall/base_link.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+        </link>
+
+        <link name="${prefix}slider_link">
+          <inertial>
+            <origin rpy="0 0 0" xyz="-0.053753433105282716 0.0356727282662012 -0.12311788862188115"/>
+            <mass value="15.165649489921714"/>
+            <inertia ixx="0.235594" ixy="0.044575" ixz="-0.00779" iyy="0.111571" iyz="0.032079" izz="0.324205"/>
+          </inertial>
+          <visual>
+            <origin rpy="0 0 0" xyz="-0.0 -0.0 0.0"/>
+            <geometry>
+              <mesh filename="package://zerog_description/meshes/wall/slider_link.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+                <material name="White">
+                  <color rgba="1.0 1.0 1.0 1.0"/>
+                </material>
+          </visual>
+          <collision>
+            <origin rpy="0 0 0" xyz="-0.0 -0.0 0.0"/>
+            <geometry>
+              <mesh filename="package://zerog_description/meshes/wall/slider_link.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+          </collision>
+        </link>
+
+
+          <joint name="${prefix}base_link_to_${prefix}base_link_inertia" type="fixed">
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}base_link_inertia" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+          </joint>
+
+
+        <joint name="${prefix}slider_joint" type="prismatic">        
+        <!-- <joint name="${prefix}slider_joint" type="fixed"> -->
+          <origin rpy="0 0 0" xyz="0.0 0.0 -0.0"/>
+          <parent link="${prefix}base_link_inertia"/>
+          <child link="${prefix}slider_link"/>
+          <axis xyz="1.0 0.0 0.0"/>
+          <limit effort="100" lower="0.0" upper="4.33" velocity="100"/>
+        </joint>
+
+        <!--Transmission tag called here from track.transmission file-->
+        <!--Carol commented this after making joint fixed-->
+         <!-- MRM reply: changed it back to prismatic now that we have rail hardware interfaces -->
+        <xacro:track_transmission prefix="${prefix}" hard_interface="PositionJointInterface" />
+        <!-- <xacro:track_transmission prefix="wall" hard_interface="EffortJointInterface" /> -->
+
+                
+         <!--Gazebo params-->
+        <!--<xacro:common_params_gazebo/>-->
+
+      </xacro:macro>
+
+    <!--Sanity Check: Testing the macro created above [comment out when including this file elsewhere]-->
+     <!-- <xacro:wall prefix=""/>  -->
+
+
+</robot>

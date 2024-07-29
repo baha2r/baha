@@ -1,0 +1,75 @@
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="true"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="false"/>
+  <arg name="headless" default="true"/>
+  <arg name="debug" default="false"/>
+  <arg name="model" default="$(find zerog_description)/urdf/zerog.xacro"/>
+
+  <arg name="position_hardware_interface" default="true"/>
+  <arg name="effort_hardware_interface" default="false"/>
+  <arg name="velocity_hardware_interface" default="false"/>
+
+  <arg name="wall_prefix" default="wall_arm_"/>
+  <arg name="ceiling_prefix" default="ceiling_arm_"/>
+  <arg name="wall_track_prefix" default="wall_track_"/>
+  <arg name="ceiling_track_prefix" default="ceiling_track_"/>
+  <arg name="track_prefix" default=""/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- <arg name="world_name" value="$(arg world_name)"/> -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="false" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find zerog_description)/urdf/zerog.xacro'
+  wall_prefix:=$(arg wall_prefix)
+  ceiling_prefix:=$(arg ceiling_prefix)
+  wall_track_prefix:=$(arg wall_track_prefix)
+  ceiling_track_prefix:=$(arg ceiling_track_prefix)"/>
+
+  <!-- Loading the controller configuration for robots -->
+  <rosparam file="$(find zerog_gazebo)/config/all_controllers.yaml" command="load" subst_value="True">$(arg ceiling_prefix),$(arg wall_prefix),$(arg wall_track_prefix),$(arg ceiling_track_prefix)</rosparam>
+
+  <!-- Loading the controller spawner -->
+  <node name="trajectory_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" 
+        output="screen" args="
+                              joint_state_controller
+                              ceiling_arm_pos_joint_traj_controller 
+                              wall_arm_pos_joint_traj_controller
+                              ceiling_track_slider_position_trajectory_controller 
+                              wall_track_slider_position_trajectory_controller" /> 
+
+  <!-- Load additional controllers without starting them -->
+  <node name="load_additional_controllers" pkg="controller_manager" type="spawner" respawn="false" 
+    output="screen" args="--stopped ceiling_arm_joint_group_pos_controller wall_arm_joint_group_pos_controller"/>
+
+  <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -param robot_description -model zerog 
+          -J ceiling_track_slider_joint 0.0
+          -J ceiling_arm_shoulder_pan_joint 0.0 
+          -J ceiling_arm_shoulder_lift_joint -1.57
+          -J ceiling_arm_elbow_joint -1.57
+          -J ceiling_arm_wrist_1_joint -1.57
+          -J ceiling_arm_wrist_2_joint -1.57 
+          -J ceiling_arm_wrist_3_joint 1.57
+          -J wall_track_slider_joint 0.0 
+          -J wall_arm_shoulder_pan_joint 0.0 
+          -J wall_arm_shoulder_lift_joint 0.0 
+          -J wall_arm_elbow_joint 0.0 
+          -J wall_arm_wrist_1_joint -1.57 
+          -J wall_arm_wrist_2_joint 1.57 
+          -J wall_arm_wrist_3_joint 0.0
+          -unpause"/>  
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+</launch>

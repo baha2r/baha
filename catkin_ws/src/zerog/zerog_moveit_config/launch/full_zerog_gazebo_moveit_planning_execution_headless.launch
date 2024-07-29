@@ -1,0 +1,37 @@
+<launch>
+  <rosparam command="load" file="$(find zerog_moveit_config)/config/joint_names_zerog.yaml" />
+
+  <!-- MRM: 08/01/2022: Adding the "gazebo_simulation" arg so that there is not need to create more than one moveit configs and so that appropriate ros_controllers are loaded when launching moveit
+  without messing with the ros_controllers for real hardware" -->
+  <arg name="gazebo_simulation" default="true"/> 
+
+  <arg name="sim" default="false" />
+  <arg name="debug" default="false" />
+  <arg name="load_robot_description" default="true" /> 
+
+  <!-- Load URDF, SRDF and joint_limits configuration -->
+  <include file="$(find zerog_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="$(arg load_robot_description)" />
+  </include>
+
+  <!-- Removed joint_state_publisher GUI and unnecessary publishers -->
+
+  <!-- Run the robot simulator and action interface nodes -->
+  <group if="$(arg sim)">
+    <include file="$(find industrial_robot_simulator)/launch/robot_interface_simulator.launch" />
+  </group>
+
+  <!-- Launch moveit -->
+  <include file="$(find zerog_moveit_config)/launch/move_group.launch">
+    <arg name="gazebo_simulation" value="$(arg gazebo_simulation)"/>
+    <arg name="debug" value="$(arg debug)" />
+  </include>
+
+  <!-- Directly include moveit_rviz.launch and ensure no GUI -->
+  <include file="$(find zerog_moveit_config)/launch/moveit_rviz.launch">
+    <!-- Removed config argument to avoid issues -->
+  </include>
+
+  <!-- Ensure GUI is disabled for all nodes -->
+  <param name="use_gui" value="false"/>
+</launch>

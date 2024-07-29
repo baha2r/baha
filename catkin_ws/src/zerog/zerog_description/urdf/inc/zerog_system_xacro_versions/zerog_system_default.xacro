@@ -1,0 +1,232 @@
+<?xml version="1.0" ?>
+<robot name="zerog" xmlns:xacro="http://www.ros.org/wiki/xacro">
+ 
+  
+  
+  <!-- Robot include-->
+  <xacro:include filename="$(find zerog_description)/urdf/inc/common/paramsforgazebo.gazebo.xacro" />
+  <xacro:include filename="$(find zerog_description)/urdf/inc/common/ur_macro.xacro"/>
+  <!--  include-->
+  <xacro:include filename="$(find zerog_description)/urdf/inc/wall/wall_track.xacro"/>
+  <xacro:include filename="$(find zerog_description)/urdf/inc/ceiling/ceiling_track.xacro"/>
+
+
+  <xacro:macro name="zerog_system" params="
+  wall_prefix 
+  ceiling_prefix 
+  effort_control
+  velocity_control
+  wall_track_prefix 
+  ceiling_track_prefix
+  joint_limit_params
+  physical_params
+  visual_params
+  transmission_hw_interface 
+  safety_limits
+  safety_pos_margin
+  safety_k_position">
+ 
+   
+    <!-- link list -->
+	
+	<link name="world" />
+	
+	
+ 
+ 
+  <!-- ........... -->
+  <!-- Wall System -->
+  <!-- ........... -->
+  
+  <!-- Wall robot -->
+	<xacro:ur_robot 
+    name="wall_arm" 
+    prefix="$(arg wall_prefix)"
+    joint_limits_parameters_file="$(arg joint_limit_params)"
+    kinematics_parameters_file="$(find zerog_robot_calibrations)/config/wall_arm_tool0_calibration_12012024.yaml"
+    physical_parameters_file="$(arg physical_params)"
+    visual_parameters_file="$(arg visual_params)"
+    transmission_hw_interface="$(arg transmission_hw_interface)"
+    safety_limits="$(arg safety_limits)"
+    safety_pos_margin="$(arg safety_pos_margin)"
+    safety_k_position="$(arg safety_k_position)" parent="$(arg wall_track_prefix)slider_link" >
+	</xacro:ur_robot>    
+
+  <!-- Wall track -->
+  <xacro:wall_track 
+    prefix="$(arg wall_track_prefix)" 
+    effort_control="$(arg effort_control)" 
+    velocity_control="$(arg velocity_control)">
+  </xacro:wall_track>
+  
+  <!-- Joints -->
+  <joint name="world_to_wall_track" type="fixed">
+		<parent link="world"/>
+		<child link="$(arg wall_track_prefix)base_link"/>
+		<!-- mrm: 17-10-2022: this was the previous value -->
+		<!-- <origin xyz="0.470 -2.850 1.448" rpy="-1.57 0.0 0.0"/> -->
+		<!--  mrm: 17-10-2022: corrected value-->
+		<!-- <origin xyz="0.458 -2.857 1.470" rpy="-1.57 0.0 -0.0117182136"/> -->
+		<!-- <origin xyz="0.458 -2.857 1.470" rpy="-1.57 0.0 -0.0"/> -->
+
+		<!-- <origin xyz="0.458 -2.857 1.470" rpy="-1.57 -0.003 -0.015"/> -->
+
+		
+		<!-- mrm: 18-10-2022: -->
+		<!-- <origin xyz="0.458 -2.857 1.470" rpy="-1.583 -0.012 -0.038"/> -->
+<!-- -0.054, -0.017, -0.019 -->
+		<!-- <origin xyz="0.464 -2.858 1.468" rpy="-1.569 -0.000 0.004"/> -->
+		<!-- mrm: 19-10-2022 -->
+		<!-- carol: 20-10-2022 carol equations and super fine tunning-->
+		<!--<origin xyz="0.4528 -2.88804 1.4807" rpy="-1.5764 -0.0043 -0.0005"/>-->
+		<!-- carol: 21-10-2022 carol equations and rb compensation-->
+		<!-- <origin xyz="0.4478 -2.87004 1.4677" rpy="-1.5764 0.0007 -0.0043"/> -->
+		<!-- kuldeep: 16-01-2023: Test values 1: Assuming slider o robot base IS zero (pose/orientation wise) -->
+	    <!-- <origin xyz="0.46237832 -2.87653623 1.46951045" rpy="-1.5703633300178717 0.002865757135800217 0.0025813104751803433"/> -->
+		<!-- kuldeep: 16-01-2023: Test values 2: Assuming slider o robot base IS NOT zero (pose/orientation wise) -->
+	    <!--<origin xyz="0.46341328 -2.87153772 1.46806516" rpy="-1.5703707407876228 0.002029350931012826 -0.0024298145390697647"/> -->
+
+		<!-- carol: 15-01-2024 KD optimazig slider transform too after UR Calib max_angl_err 0.5deg max_pos_err 8mm -->
+		<origin xyz="0.46011526 -2.86911758 1.4727632" rpy="-1.5703518119014468 -0.0011288829585943331 0.00019960337883746928"/>
+		
+
+		
+
+
+	</joint> 
+
+  <joint name="$(arg wall_track_prefix)to_robot" type="fixed">
+		<parent link="$(arg wall_track_prefix)slider_link"/>
+		<child link="${wall_prefix}base_link"/>
+		<!-- carol: 20-10-2022 carol equations and super fine tunning-->
+		<!--<origin xyz="0.008 0.0 0" rpy=" 0 0 0.009"/>-->
+		<!-- carol: 21-10-$(arg prefix)_2022 carol equations and rb compensation-->
+		<!-- <origin xyz="0.005 0 0" rpy="0 0 0.002"/>-->
+		<!-- kuldeep: 16-01-2023: Test values 2: Assuming slider o robot base IS NOT zero (pose/orientation wise) -->
+	   <!-- <origin xyz="0.00103875 0.00144423 0.00499638" rpy="0.00008297349843424107 -0.00286594281920254 0.000041272226030475835"/> -->
+
+	<!-- carol: 15-01-2024:KD optimazig slider transform too after UR Calib max_angl_err 0.5deg max_pos_err 8mm -->
+	   <origin xyz="-0.0022474 -0.0032471 0.00742614" rpy="0.00022253154443841984 0.0008610147752738237 0.0021110973177466043"/>
+
+
+	 </joint>
+
+<!-- ........... -->
+  <!-- Ceiling System -->
+  <!-- ........... -->
+	
+	 <!-- Ceiling robot -->
+	<xacro:ur_robot name="ceiling_arm" prefix="$(arg ceiling_prefix)"
+     joint_limits_parameters_file="$(arg joint_limit_params)"
+     kinematics_parameters_file="$(find zerog_robot_calibrations)/config/ceiling_arm_tool0_calibration_12012024.yaml"
+     physical_parameters_file="$(arg physical_params)"
+     visual_parameters_file="$(arg visual_params)"
+     transmission_hw_interface="$(arg transmission_hw_interface)"
+     safety_limits="$(arg safety_limits)"
+     safety_pos_margin="$(arg safety_pos_margin)"
+     safety_k_position="$(arg safety_k_position)" parent="$(arg ceiling_track_prefix)slider_link" >
+	</xacro:ur_robot> 
+
+  <!-- Ceiling track -->
+ 	<xacro:ceiling_track prefix="$(arg ceiling_track_prefix)" effort_control="$(arg effort_control)" velocity_control="$(arg velocity_control)"/>
+  
+  <!-- Joints -->
+ 	<joint name="world_to_ceiling_track" type="fixed">
+		<parent link="world"/>
+		<child link="$(arg ceiling_track_prefix)base_link"/> 
+		<!--<origin xyz="0.499 -1.568 2.411" rpy="3.140 0.0 0.0"/>-->
+		<!-- CAROL. The values belowed are the new calibrated values after running tests with BS 20th July 2022 -->
+		<!--  <origin xyz="0.525 -1.54 2.411" rpy="3.140 0.0 0.0"/> -->
+		<!-- carol: 27-10-2022 carol equations -->
+		<!-- <origin xyz="0.4910 -1.5679 2.4343" rpy="-3.1386 -0.0130 0.0010"/> -->
+		<!-- carol: 17-11-2022 carol equations and compensation-->
+		 <!-- <origin xyz="0.4880 -1.5679 2.43" rpy="3.1386 0 0.0022"/>  -->
+		<!-- mrm: from carol: 24-11-2022 -->
+		<!-- <origin xyz="0.474 -1.5625 2.4237" rpy="3.1486 0.012 -0.005"/> -->
+		<!-- carol: 25-11-2022 -->
+		<!-- <origin xyz="0.4719 -1.5529 2.4218" rpy="3.1444 0.000105 0.0008134"/> -->
+		<!-- kuldeep: 25-11-2022 -->
+		<!-- <origin xyz="0.47011785 -1.545519 2.418628" rpy="3.14 0.0 0.0"/> -->
+		<!-- kuldeep optimization: 13-02-2023:  -->
+	   	<!--<origin xyz="0.46698106 -1.55530521 2.41967118" rpy="-1.6529900218061442 0.00519055692574511 0.008868620171927582"/>-->
+
+		<!-- mrm: 13-02-2023: kuldeep's second trial :  -->
+		<!-- <origin xyz="0.45309762 -1.56257541 2.40410558" rpy="-3.1372884736032245 -0.010114775128145776 0.0052509372742903845"/> -->
+
+		<!-- carol: 27-03-2023 -->
+		<!-- <origin xyz="0.4919 -1.5529 2.4288" rpy="3.1444 0.000105 0.0008134"/> -->
+		<!-- carol: 24-07-2023 KD -->
+		<!-- <origin xyz="0.45747611 -1.56011413 2.4207731" rpy="3.1403140368860716 0.012435328753899657 -0.004057227314300482"/> -->
+		<!-- carol: 10-01-2024 KD-->
+		<!-- <origin xyz="0.47026169 -1.55613092 2.42158438" rpy="-3.133977393212161 -0.003666018115233126 0.0003831830233049494"/> -->
+		<!-- carol: 10-01-2024 KD optimazig slider transform too-->
+		<!--<origin xyz="0.46999668 -1.55550512 2.42246655" rpy="-3.135412905411085 -0.0023639116557794064 0.002915808288824508"/> -->
+		<!-- carol: 12-01-2024 KD optimazig slider transform too after UR Calib-->
+		<!-- <origin xyz="0.46811227 -1.55275781 2.43447847" rpy="3.1327052750830275 -0.0000354318990714005 0.0031003679583681146"/> -->
+		<!-- carol: 12-01-2024 KD optimazig slider transform too after UR Calib max_angl_err 0.5deg max_pos_err 0.8mm -->
+		<!--<origin xyz="0.47311482 -1.55275248 2.42547382" rpy="-3.1405586112883936 -0.0020354318990714005 0.0031009376857322945"/> -->
+		<!-- carol: 22-01-2024 after Carol Tunning KD optimazig slider transform too after UR Calib max_angl_err 0.5deg max_pos_err  -->
+		<origin xyz="0.47811482 -1.55275248 2.41047382" rpy="-3.1405586112883936 -0.0080354318990714005 0.0031009376857322945"/>
+	
+
+	</joint> 
+
+  <joint name="$(arg ceiling_track_prefix)to_robot" type="fixed">
+		<parent link="$(arg ceiling_track_prefix)slider_link"/>
+		<child link="${ceiling_prefix}base_link"/>  
+		<!-- 25-11-2022: previous -->
+		<!-- <origin xyz="0.0  0 0" rpy="0 0 3.1416"/> -->
+		<!-- kuldeep: 25-11-2022 -->
+		<!-- <origin xyz="-0.01268 0.01073 0.00146" rpy="0.0 0.0 3.1416"/> -->
+		<!-- kuldeep optimization: 13-02-2023:  -->
+		<!-- <origin xyz="-0.01263297  -0.00212032 -0.0115018" rpy="1.475456999691908 -0.0032409696343523547 3.126342513901727"/>-->
+
+		<!-- carol: 24-07-2023 KD -->
+		<!-- <origin xyz="0.00431412 -0.00247575 -0.01668211" rpy=""/> -->
+		<!-- carol: 10-01-2024 KD optimazig slider transform too-->
+		<!--<origin xyz="-0.00027646 -0.00060454 -0.00091026" rpy="-0.013819230623271925 -0.0018720883610158882 3.140322314500086"/> -->
+		<!-- carol: 12-01-2024 KD optimazig slider transform too after UR Calib-->
+		<!-- <origin xyz="0.00286203 -0.0033151 -0.00393414" rpy="-0.01094194562135319 0.005221112391444752 3.1402835083257563"/> -->
+		<!-- carol: 12-01-2024 KD optimazig slider transform too after UR Calib max_angl_err 0.5deg max_pos_err 0.8mm -->
+		<origin xyz="0.00285801 -0.00334764 -0.0039066" rpy="-0.001033149548599494 0.005232481185958381 3.1403361087591026"/> 
+		
+	 </joint>
+	
+   
+    
+ 
+  <!-- ........... -->
+  <!-- Workspace -->
+  <!-- ........... -->
+  
+    
+	<link name="zerog_room_frame">
+		<visual>
+			<geometry>
+				<mesh filename="package://zerog_description/meshes/environment/zerog_room_andrej.stl" />
+			</geometry>
+			<material name="white" >
+				<color rgba="1.0 1.0 1.0 1.0"/>
+      </material>
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://zerog_description/meshes/environment/zerog_room_andrej.stl" />
+			</geometry>
+		</collision>
+	</link>
+  
+  
+  <!-- Joints -->
+   <joint name="world_to_zerogroom" type="fixed">
+		<parent link="world" />
+		<child link="zerog_room_frame"/>
+		<origin xyz="0 0 0"/>
+	</joint>
+
+
+
+
+	</xacro:macro>
+
+</robot>

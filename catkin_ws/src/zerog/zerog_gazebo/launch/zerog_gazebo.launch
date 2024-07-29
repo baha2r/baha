@@ -1,0 +1,102 @@
+<launch>
+
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="true"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <!-- <arg name="world_name" default="$(find zerog_gazebo)/worlds/zerog.world" /> -->
+  <arg name="model" default="$(find zerog_description)/urdf/zerog.xacro"/>
+
+  <arg name="position_hardware_interface" default="true"/>
+  <arg name="effort_hardware_interface" default="false"/>
+  <arg name="velocity_hardware_interface" default="false"/>
+
+  <arg name="wall_prefix" default="wall_arm_"/>
+  <arg name="ceiling_prefix" default="ceiling_arm_"/>
+  <arg name="wall_track_prefix" default="wall_track_"/>
+  <arg name="ceiling_track_prefix" default="ceiling_track_"/>
+  <arg name= "track_prefix" default=""/>
+
+
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- <arg name="world_name" value="$(arg world_name)"/> -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find zerog_description)/urdf/zerog.xacro'
+  wall_prefix:=$(arg wall_prefix)
+  ceiling_prefix:=$(arg ceiling_prefix)
+  wall_track_prefix:=$(arg wall_track_prefix)
+  ceiling_track_prefix:=$(arg ceiling_track_prefix)"
+
+  /> 
+
+  <!-- MRM: 6/01/2022: Using a single XACRO file for the over all system has it's pros and cons. While it helps have eveything in one place with the
+  real hardware. It creates problems when used with Gazebo, because urdf_spawner node and controller spawner node need to be in the same namespace.
+  While depending on the number of robots we may have more than one controller spawner. We cannot have more than one urdf spawner if we are using
+  one one overall xacro. I've found two solutions so far:
+  
+  Solution 1: In Gazebo, everything needs to be namespaced. Which means that each robot should have its own URDF spawner node, 
+  its own controller spawner node within its own unique namespace. But we will essentially be loading more than one base xacros, which is contrary to the 
+  agreed upon structure (implemented with the real system).
+
+  Solution 2: In gazebo, we spawn the URDF spawner, and one single controller spawner that spawns controllers for all robots. In this method, it is best if we skip the namespaces altogether
+  for the sake of simplicity and ease of implementation when using the model with moveit. -->
+
+
+
+  <!-- Loading the controller configuration for robots -->
+  <rosparam file="$(find zerog_gazebo)/config/all_controllers.yaml" command="load" subst_value="True">$(arg ceiling_prefix),$(arg wall_prefix),$(arg wall_track_prefix),$(arg ceiling_track_prefix)</rosparam>
+  <!-- Loading the controller spawner -->
+  <node name="trajectory_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" 
+        output="screen" args="
+                              joint_state_controller
+                              ceiling_arm_pos_joint_traj_controller 
+                              wall_arm_pos_joint_traj_controller
+                              ceiling_track_slider_position_trajectory_controller 
+                              wall_track_slider_position_trajectory_controller" /> 
+
+<!-- MRM: 02/01/2024 Load additional controllers without starting them -->
+  <node name="load_additional_controllers" pkg="controller_manager" type="spawner" respawn="false" 
+    output="screen" args="--stopped ceiling_arm_joint_group_pos_controller wall_arm_joint_group_pos_controller">
+</node>
+
+<!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+<!-- MRM: 08/01/2022: Starting to load zerog system with desired initial configuration to avoid unwanted starting poses in moveit. -->
+<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+  args="-urdf -param robot_description -model zerog 
+        -J ceiling_track_slider_joint 0.0
+        -J ceiling_arm_shoulder_pan_joint 0.0 
+        -J ceiling_arm_shoulder_lift_joint -1.57
+        -J ceiling_arm_elbow_joint -1.57
+        -J ceiling_arm_wrist_1_joint -1.57
+        -J ceiling_arm_wrist_2_joint -1.57 
+        -J ceiling_arm_wrist_3_joint 1.57
+        -J wall_track_slider_joint 0.0 
+        -J wall_arm_shoulder_pan_joint 0.0 
+        -J wall_arm_shoulder_lift_joint 0.0 
+        -J wall_arm_elbow_joint 0.0 
+        -J wall_arm_wrist_1_joint -1.57 
+        -J wall_arm_wrist_2_joint 1.57 
+        -J wall_arm_wrist_3_joint 0.0
+        -unpause"/>  
+
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+
+
+
+
+
+
+</launch>

@@ -1,0 +1,8 @@
+prefix=/root/baha/catkin_ws/install
+
+Name: zerog_description
+Description: Description of zerog_description
+Version: 1.2.5
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

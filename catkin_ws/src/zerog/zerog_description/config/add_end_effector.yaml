@@ -1,0 +1,4 @@
+# Specify the name of the xacro here
+
+$(arg prefix)xacro_name:
+$(arg prefix)xacro_location:

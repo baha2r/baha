@@ -1,0 +1,26 @@
+<launch>
+
+
+    <!-- Launching Pose Tracking Node -->
+
+    <node name="servo_server" pkg="zerog_moveit_servo" type="zerog_pose_tracking_chaser_ee_based" output="screen">
+        <param name="parameter_ns" type="string" value="servo_server" />
+        <rosparam ns="servo_server" command="load" file="$(find zerog_moveit_servo)/config/wall_arm_real_config.yaml" />
+        <rosparam ns="servo_server" command="load" file="$(find zerog_moveit_servo)/config/zerog_pose_tracking_settings.yaml" />
+    </node>
+
+  
+    <node name="target_servo_server" pkg="zerog_moveit_servo" type="zerog_pose_tracking_target_ee_based" output="screen">
+        <param name="parameter_ns" type="string" value="target_servo_server" />
+        <rosparam ns="target_servo_server" command="load" file="$(find zerog_moveit_servo)/config/ceiling_arm_real_config.yaml" />
+        <rosparam ns="target_servo_server" command="load" file="$(find zerog_moveit_servo)/config/zerog_pose_tracking_settings.yaml" />
+    </node>
+    <!-- Step 5: plots -->
+    <!-- <node name="plotjuggler_with_custom_layout" pkg="plotjuggler" type="plotjuggler" args="-layout $(find zerog_moveit_servo)/etc/pose_tracker_plots_3.xml" launch-prefix="bash -c 'sleep $(arg node_start_delay6); $0 $@'"/> -->
+
+    <!-- <arg name="topics_name" default="/wall_arm_base_link_to_wall_arm_tool0/pose /servo_server/target_pose  "/>
+    <node type="record" name="record" pkg="rosbag" args="record $(arg topics_name) -o /home/pp1744/Desktop/Reading/"/>  --> 
+
+
+
+</launch>

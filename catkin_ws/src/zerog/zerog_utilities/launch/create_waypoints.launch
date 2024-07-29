@@ -1,0 +1,26 @@
+<launch>
+
+    <arg name="namespace_moving_target_frame" default="ceiling_arm" doc="Specify the name as parent_to_child"/>
+    <arg name="parent_frame_mtf" default="CW" doc="Specify the parent frame name"/>
+    <arg name="child_frame_mtf" default="target_ref" doc="Specify the child frame name"/>
+    <arg name="frequency_mtf" default="15.0" doc="Specify the frequency in hz"/>
+    <arg name="traj_duration" default="60.0" doc="Specify the duration of trajectory"/>
+
+    
+
+
+
+    <group ns="$(arg namespace_moving_target_frame)">
+        
+        <param name="parent_frame_mtf" type="str" value="$(arg parent_frame_mtf)"/>
+        <param name="child_frame_mtf" type="str" value="$(arg child_frame_mtf)"/>
+        <param name="frequency_mtf" type="double" value="$(arg frequency_mtf)"/>
+        <param name="traj_duration" type="double" value="$(arg traj_duration)"/>
+        
+        <node name="create_waypoints" pkg="zerog_utilities" type="create_waypoints" output="screen"/>
+
+    </group>
+
+
+
+</launch>

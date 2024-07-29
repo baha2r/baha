@@ -1,0 +1,8 @@
+prefix=/root/baha/catkin_ws/install
+
+Name: zerog_robot_calibrations
+Description: Description of zerog_robot_calibrations
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

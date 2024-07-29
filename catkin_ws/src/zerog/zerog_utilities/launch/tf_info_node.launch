@@ -1,0 +1,21 @@
+<launch>
+
+    <arg name="plot_tf_namespace" default="" doc="Specify the name as parent_to_child"/>
+    <arg name="parent_frame" default="" doc="Specify the parent frame name"/>
+    <arg name="child_frame" default="" doc="Specify the child frame name"/>
+    <arg name="freq" default="15.0" doc="Specify the child frame name"/>
+
+
+
+    <group ns="$(arg plot_tf_namespace)">
+        
+        <param name="parent_frame" type="str" value="$(arg parent_frame)"/>
+        <param name="child_frame" type="str" value="$(arg child_frame)"/>
+        <param name="freq" type="double" value="$(arg freq)"/>
+        <node name="tf_info_node" pkg="zerog_utilities" type="tf_info_node"/>
+
+    </group>
+
+
+
+</launch>

@@ -1,0 +1,117 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate:  500
+
+
+$(arg ceiling_prefix)pos_joint_traj_controller:
+  type: position_controllers/JointTrajectoryController
+  joints: 
+    - $(arg ceiling_prefix)shoulder_pan_joint
+    - $(arg ceiling_prefix)shoulder_lift_joint
+    - $(arg ceiling_prefix)elbow_joint
+    - $(arg ceiling_prefix)wrist_1_joint
+    - $(arg ceiling_prefix)wrist_2_joint
+    - $(arg ceiling_prefix)wrist_3_joint
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    $(arg ceiling_prefix)shoulder_pan_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg ceiling_prefix)shoulder_lift_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg ceiling_prefix)elbow_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg ceiling_prefix)wrist_1_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg ceiling_prefix)wrist_2_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg ceiling_prefix)wrist_3_joint: {trajectory: 0.2, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 500
+  action_monitor_rate: 10
+
+$(arg ceiling_prefix)joint_group_pos_controller:
+  type: position_controllers/JointGroupPositionController
+  joints: 
+    - $(arg ceiling_prefix)shoulder_pan_joint
+    - $(arg ceiling_prefix)shoulder_lift_joint
+    - $(arg ceiling_prefix)elbow_joint
+    - $(arg ceiling_prefix)wrist_1_joint
+    - $(arg ceiling_prefix)wrist_2_joint
+    - $(arg ceiling_prefix)wrist_3_joint
+
+# wall_arm:
+# joint_state_controller:
+#   type: joint_state_controller/JointStateController
+#   publish_rate: 500
+
+$(arg wall_prefix)pos_joint_traj_controller:
+  type: position_controllers/JointTrajectoryController
+  joints: 
+    - $(arg wall_prefix)shoulder_pan_joint
+    - $(arg wall_prefix)shoulder_lift_joint
+    - $(arg wall_prefix)elbow_joint
+    - $(arg wall_prefix)wrist_1_joint
+    - $(arg wall_prefix)wrist_2_joint
+    - $(arg wall_prefix)wrist_3_joint
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    $(arg wall_prefix)shoulder_pan_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg wall_prefix)shoulder_lift_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg wall_prefix)elbow_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg wall_prefix)wrist_1_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg wall_prefix)wrist_2_joint: {trajectory: 0.2, goal: 0.1}
+    $(arg wall_prefix)wrist_3_joint: {trajectory: 0.2, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate: 500
+  action_monitor_rate: 10
+
+$(arg wall_prefix)joint_group_pos_controller:
+  type: position_controllers/JointGroupPositionController
+  joints: 
+    - $(arg wall_prefix)shoulder_pan_joint
+    - $(arg wall_prefix)shoulder_lift_joint
+    - $(arg wall_prefix)elbow_joint
+    - $(arg wall_prefix)wrist_1_joint
+    - $(arg wall_prefix)wrist_2_joint
+    - $(arg wall_prefix)wrist_3_joint
+
+#$(arg ceiling_track_prefix)slider_joint_position_controller:
+#  type: position_controllers/JointPositionController
+#  joint: $(arg ceiling_track_prefix)slider_joint
+
+$(arg ceiling_track_prefix)slider_position_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints: 
+    - $(arg ceiling_track_prefix)slider_joint
+
+
+#$(arg wall_track_prefix)slider_joint_position_controller:
+#  type: position_controllers/JointPositionController
+#  joint: $(arg wall_track_prefix)slider_joint
+
+$(arg wall_track_prefix)slider_position_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints: 
+    - $(arg wall_track_prefix)slider_joint
+
+
+##### mrm: 29-12-2022 combined control addition#####
+#combined_ceiling_pos_joint_traj_controller:
+#  type: position_controllers/JointTrajectoryController
+#  joints: 
+#    - $(arg ceiling_track_prefix)slider_joint
+#    - $(arg ceiling_prefix)shoulder_pan_joint
+#    - $(arg ceiling_prefix)shoulder_lift_joint
+#    - $(arg ceiling_prefix)elbow_joint
+#    - $(arg ceiling_prefix)wrist_1_joint
+#    - $(arg ceiling_prefix)wrist_2_joint
+#    - $(arg ceiling_prefix)wrist_3_joint
+ 
+##### mrm: 29-12-2022 combined control addition#####
+#combined_wall_pos_joint_traj_controller:
+#  type: position_controllers/JointTrajectoryController
+#  joints: 
+#    - $(arg wall_track_prefix)slider_joint
+#    - $(arg wall_prefix)shoulder_pan_joint
+#    - $(arg wall_prefix)shoulder_lift_joint
+#    - $(arg wall_prefix)elbow_joint
+#    - $(arg wall_prefix)wrist_1_joint
+#    - $(arg wall_prefix)wrist_2_joint
+#    - $(arg wall_prefix)wrist_3_joint

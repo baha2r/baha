@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /root/baha/catkin_ws/devel/.private/zerog_description/setup.sh

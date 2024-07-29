@@ -1,0 +1,183 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="zerog">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+
+    <!-- MRM: Specifying the chain of Tfs here -->
+    <!-- tip_link should be the end-effector -->
+    <group name="wall_arm">
+        <chain base_link="wall_arm_base_link" tip_link="wall_arm_tool0" />  
+    </group>
+
+    <group name="ceiling_arm">
+        <chain base_link="ceiling_arm_base_link" tip_link="ceiling_arm_tool0" /> 
+    </group>  
+
+    <group name="wall_track">
+        <chain base_link="wall_track_base_link" tip_link="wall_track_slider_link" />
+    </group>
+
+    <group name="ceiling_track">
+        <chain base_link="ceiling_track_base_link" tip_link="ceiling_track_slider_link" />
+    </group> 
+
+    <!-- MRM: Specifying some pre-defined config's for the robots and rails  -->
+    <group_state name="start_config" group="ceiling_arm">
+        <joint name="ceiling_arm_elbow_joint" value="1.16" />
+        <joint name="ceiling_arm_shoulder_lift_joint" value=" -1.22" />
+        <joint name="ceiling_arm_shoulder_pan_joint" value="-0.88" />
+        <joint name="ceiling_arm_wrist_1_joint" value="-3.07" />
+        <joint name="ceiling_arm_wrist_2_joint" value="-0.69" />
+        <joint name="ceiling_arm_wrist_3_joint" value="1.57" />
+    </group_state>  
+
+    <group_state name="end_config" group="ceiling_arm">
+        <joint name="ceiling_arm_elbow_joint" value="1.57" />
+        <joint name="ceiling_arm_shoulder_lift_joint" value=" -1.57" />
+        <joint name="ceiling_arm_shoulder_pan_joint" value="0.0" />
+        <joint name="ceiling_arm_wrist_1_joint" value="-3.14" />
+        <joint name="ceiling_arm_wrist_2_joint" value="-1.57" />
+        <joint name="ceiling_arm_wrist_3_joint" value="1.57" />
+    </group_state>
+
+ 
+
+    <group_state name="ceiling_track_config" group="ceiling_track">
+        <joint name="ceiling_track_slider_joint" value="2.50" />
+    </group_state>
+    
+
+    <group_state name="start_config" group="wall_arm">
+        <joint name="wall_arm_elbow_joint" value="-1.55" />
+        <joint name="wall_arm_shoulder_lift_joint" value="-1.28" />
+        <joint name="wall_arm_shoulder_pan_joint" value="-2.81" />
+        <joint name="wall_arm_wrist_1_joint" value="2.84" />
+        <joint name="wall_arm_wrist_2_joint" value="-1.22" />
+        <joint name="wall_arm_wrist_3_joint" value="-3.15" />
+    </group_state>
+
+    <group_state name="end_config" group="wall_arm">
+        <joint name="wall_arm_elbow_joint" value="-2.0654" />
+        <joint name="wall_arm_shoulder_lift_joint" value="-0.781" />
+        <joint name="wall_arm_shoulder_pan_joint" value="-1.57" />
+        <joint name="wall_arm_wrist_1_joint" value="0" />
+        <joint name="wall_arm_wrist_2_joint" value="1.57" />
+        <joint name="wall_arm_wrist_3_joint" value="0" />
+    </group_state>
+
+
+
+    <group_state name="wall_track_config" group="wall_track">
+        <joint name="wall_track_slider_joint" value="1.6" />
+    </group_state>
+
+
+
+    <!-- MRM:  Specifying Collision Matrix -->
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="ceiling_arm_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="ceiling_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="ceiling_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="ceiling_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="ceiling_track_slider_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_forearm_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_base_link_inertia" link2="zerog_room_frame" reason="Never" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="ceiling_arm_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="ceiling_arm_wrist_1_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_forearm_link" link2="zerog_room_frame" reason="Default" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="ceiling_arm_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="ceiling_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="ceiling_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="ceiling_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_forearm_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_shoulder_link" link2="zerog_room_frame" reason="Never" />
+    <disable_collisions link1="ceiling_arm_upper_arm_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_upper_arm_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_upper_arm_link" link2="wall_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_upper_arm_link" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_upper_arm_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_upper_arm_link" link2="zerog_room_frame" reason="Default" />
+    <disable_collisions link1="ceiling_arm_wrist_1_link" link2="ceiling_arm_wrist_2_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_wrist_1_link" link2="ceiling_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_1_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_1_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_1_link" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_1_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_2_link" link2="ceiling_arm_wrist_3_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_arm_wrist_2_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_2_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_2_link" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_2_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_3_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_3_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_3_link" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_arm_wrist_3_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="ceiling_track_slider_link" reason="Adjacent" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_forearm_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_track_base_link_inertia" reason="Adjacent" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_base_link_inertia" link2="zerog_room_frame" reason="Adjacent" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_forearm_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_shoulder_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="ceiling_track_slider_link" link2="zerog_room_frame" reason="Never" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="wall_arm_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="wall_arm_upper_arm_link" reason="Never" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="wall_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="wall_arm_wrist_2_link" reason="Never" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="wall_track_slider_link" reason="Adjacent" />
+    <disable_collisions link1="wall_arm_base_link_inertia" link2="zerog_room_frame" reason="Never" />
+    <disable_collisions link1="wall_arm_forearm_link" link2="wall_arm_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="wall_arm_forearm_link" link2="wall_arm_wrist_1_link" reason="Adjacent" />
+    <disable_collisions link1="wall_arm_shoulder_link" link2="wall_arm_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="wall_arm_shoulder_link" link2="wall_arm_wrist_1_link" reason="Never" />
+    <disable_collisions link1="wall_arm_shoulder_link" link2="wall_track_base_link_inertia" reason="Never" />
+    <disable_collisions link1="wall_arm_shoulder_link" link2="wall_track_slider_link" reason="Never" />
+    <disable_collisions link1="wall_arm_shoulder_link" link2="zerog_room_frame" reason="Never" />
+    <disable_collisions link1="wall_arm_wrist_1_link" link2="wall_arm_wrist_2_link" reason="Adjacent" />
+    <disable_collisions link1="wall_arm_wrist_1_link" link2="wall_arm_wrist_3_link" reason="Never" />
+    <disable_collisions link1="wall_arm_wrist_2_link" link2="wall_arm_wrist_3_link" reason="Adjacent" />
+    <disable_collisions link1="wall_track_base_link_inertia" link2="wall_track_slider_link" reason="Adjacent" />
+    <disable_collisions link1="wall_track_base_link_inertia" link2="zerog_room_frame" reason="Adjacent" />
+    <disable_collisions link1="wall_track_slider_link" link2="zerog_room_frame" reason="Never" />
+</robot>

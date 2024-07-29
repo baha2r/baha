@@ -1,0 +1,8 @@
+prefix=/root/baha/catkin_ws/install
+
+Name: zerog_utilities
+Description: Description of zerog_utilities
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs message_runtime message_filters tf2 tf2_ros tf2_geometry_msgs moveit_servo interactive_markers moveit_core moveit_ros_perception moveit_ros_planning_interface pluginlib roscpp std_msgs sensor_msgs dynamic_reconfigure
