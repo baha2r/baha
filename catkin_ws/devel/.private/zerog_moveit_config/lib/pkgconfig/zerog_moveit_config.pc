@@ -1,8 +1,0 @@
-prefix=/root/baha/catkin_ws/devel/.private/zerog_moveit_config
-
-Name: zerog_moveit_config
-Description: Description of zerog_moveit_config
-Version: 0.3.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

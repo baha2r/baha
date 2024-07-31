@@ -1,1 +1,0 @@
-/root/baha/catkin_ws/devel/.private/zerog_moveit_servo/lib/pkgconfig/zerog_moveit_servo.pc

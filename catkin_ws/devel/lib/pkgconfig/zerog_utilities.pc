@@ -1,1 +1,0 @@
-/root/baha/catkin_ws/devel/.private/zerog_utilities/lib/pkgconfig/zerog_utilities.pc

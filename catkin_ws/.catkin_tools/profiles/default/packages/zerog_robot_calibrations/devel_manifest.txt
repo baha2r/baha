@@ -1,5 +1,0 @@
-zerog/zerog_robot_calibrations
-/root/baha/catkin_ws/devel/.private/zerog_robot_calibrations/cmake.lock /root/baha/catkin_ws/devel/./cmake.lock
-/root/baha/catkin_ws/devel/.private/zerog_robot_calibrations/share/zerog_robot_calibrations/cmake/zerog_robot_calibrationsConfig-version.cmake /root/baha/catkin_ws/devel/share/zerog_robot_calibrations/cmake/zerog_robot_calibrationsConfig-version.cmake
-/root/baha/catkin_ws/devel/.private/zerog_robot_calibrations/share/zerog_robot_calibrations/cmake/zerog_robot_calibrationsConfig.cmake /root/baha/catkin_ws/devel/share/zerog_robot_calibrations/cmake/zerog_robot_calibrationsConfig.cmake
-/root/baha/catkin_ws/devel/.private/zerog_robot_calibrations/lib/pkgconfig/zerog_robot_calibrations.pc /root/baha/catkin_ws/devel/lib/pkgconfig/zerog_robot_calibrations.pc

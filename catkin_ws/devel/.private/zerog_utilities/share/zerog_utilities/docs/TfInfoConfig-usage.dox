@@ -1,7 +1,0 @@
-\subsubsection usage Usage
-\verbatim
-<node name="TfInfo" pkg="zerog_utilities" type="TfInfo">
-  <param name="averaging_interval" type="double" value="0.0001" />
-</node>
-\endverbatim
-

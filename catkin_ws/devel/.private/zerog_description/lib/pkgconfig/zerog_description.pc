@@ -1,8 +1,0 @@
-prefix=/root/baha/catkin_ws/devel/.private/zerog_description
-
-Name: zerog_description
-Description: Description of zerog_description
-Version: 1.2.5
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

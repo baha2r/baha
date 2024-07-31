@@ -1,1 +1,0 @@
-/root/baha/catkin_ws/devel/.private/zerog_robot_calibrations/lib/pkgconfig/zerog_robot_calibrations.pc
